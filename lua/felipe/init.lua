@@ -1,3 +1,3 @@
 require("felipe.core.remap")
-require("felipe.core.indentation")
+require("felipe.core.set")
 require("felipe.config.lazy")

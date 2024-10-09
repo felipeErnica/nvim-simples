@@ -18,4 +18,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-require("lazy").setup({ {import = "felipe.plugins"} })
+require("lazy").setup({
+    spec = "felipe.plugins",
+    change_detection = { notify = false }
+})
