@@ -1,5 +1,5 @@
 return {
-    "neovim/nvim-lspconfig",
+    'neovim/nvim-lspconfig',
     dependencies = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
@@ -10,11 +10,13 @@ return {
         "hrsh7th/nvim-cmp",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
+        "onsails/lspkind.nvim",
         "j-hui/fidget.nvim",
     },
     config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
+
         local capabilities = vim.tbl_deep_extend(
             "force",
             {},
@@ -24,6 +26,10 @@ return {
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
+            ensure_installed = {
+                "jdtls",
+                "lua_ls",
+            },
             handlers = {
                 function(server_name) -- default handler (optional)
                     require("lspconfig")[server_name].setup {
@@ -31,31 +37,38 @@ return {
                     }
                 end,
 
-                zls = function()
+                ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
-                    lspconfig.zls.setup({
-                        root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
+                    lspconfig.lua_ls.setup {
+                        capabilities = capabilities,
                         settings = {
-                            zls = {
-                                enable_inlay_hints = true,
-                                enable_snippets = true,
-                                warn_style = true,
-                            },
-                        },
-                    })
-                    vim.g.zig_fmt_parse_errors = 0
-                    vim.g.zig_fmt_autosave = 0
-                end
+                            Lua = {
+                                diagnostics = {
+                                    globals = { "vim", "it", "describe", "before_each", "after_each" },
+                                }
+                            }
+                        }
+                    }
+                end,
             }
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
+        local lspkind = require("lspkind")
 
         cmp.setup({
             snippet = {
                 expand = function(args)
                     require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
                 end,
+            },
+            formatting = {
+                format = lspkind.cmp_format({
+                    mode = 'symbol',
+                    maxwidth = 50,
+                    ellipsis_char = '...',
+                    show_labelDetails = true,
+                })
             },
             mapping = cmp.mapping.preset.insert({
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
@@ -70,9 +83,7 @@ return {
                 { name = 'buffer' },
             })
         })
-         
         vim.diagnostic.config({
-            -- update_in_insert = true,
             float = {
                 focusable = false,
                 style = "minimal",
