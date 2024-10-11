@@ -1,3 +1,4 @@
+local jdtls = require("jdtls")
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 capabilities.workspace = {
@@ -88,6 +89,14 @@ local config = {
             }
         }
     },
+    init_options = {
+        bundles = vim.fn.glob(vim.env.HOME .. '/local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar')
+    }
 }
+
+config["on-attach"] = function(client, bufnr) 
+    jdtls.setup_dap({ hotcodereplace = 'auto'})
+    require("jdtls.dap").setup_dap_main_class_configs()
+end
 
 require('jdtls').start_or_attach(config)
