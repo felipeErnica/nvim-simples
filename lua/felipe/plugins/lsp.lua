@@ -13,6 +13,13 @@ return {
         "onsails/lspkind.nvim",
         "j-hui/fidget.nvim",
     },
+    opts = {
+        setup = {
+            jdtls = function()
+                return true
+            end
+        }
+    },
     config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
@@ -27,16 +34,14 @@ return {
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = {
-                "jdtls",
                 "lua_ls",
+                "jdtls"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-                    require("lspconfig")[server_name].setup {
-                        capabilities = capabilities
-                    }
+                    require("lspconfig")[server_name].setup { capabilities = capabilities }
                 end,
-
+                ["jdtls"] = function () end,
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {
@@ -80,8 +85,8 @@ return {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
             }, {
-                { name = 'buffer' },
-            })
+                    { name = 'buffer' },
+                })
         })
         vim.diagnostic.config({
             float = {
@@ -94,4 +99,5 @@ return {
             },
         })
     end
+
 }
