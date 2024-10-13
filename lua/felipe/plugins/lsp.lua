@@ -3,6 +3,7 @@ return {
     dependencies = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -23,6 +24,13 @@ return {
     config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
+
+        require("mason-tool-installer").setup({
+            ensure_installed = {
+                "java-debug-adapter",
+                "java-test"
+            }
+        })
 
         local capabilities = vim.tbl_deep_extend(
             "force",

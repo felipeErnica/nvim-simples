@@ -6,9 +6,16 @@ return {
             {
                 type = 'java';
                 request = 'attach';
-                name = "Debug (Attach) - Remote";
+                name = "Debug Attach(5005) - Remote";
                 hostName = "127.0.0.1";
                 port = 5005;
+            },
+            {
+                type = 'java';
+                request = 'attach';
+                name = "Debug Attach (8080) - Remote";
+                hostName = "127.0.0.1";
+                port = 8080;
             },
         }
     end

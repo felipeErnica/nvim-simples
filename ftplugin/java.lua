@@ -29,8 +29,8 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '<leader>xp', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', '<leader>xn', vim.diagnostic.goto_next, opts)
 end
 
 
@@ -94,7 +94,7 @@ local config = {
     }
 }
 
-config["on-attach"] = function(client, bufnr) 
+config["on-attach"] = function(client, bufnr)
     jdtls.setup_dap({ hotcodereplace = 'auto'})
     require("jdtls.dap").setup_dap_main_class_configs()
 end
