@@ -1,5 +1,6 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
+    lazy = false,
     branch = "v3.x",
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -27,12 +28,28 @@ return {
                 })
             end,
         },
+        {
+            "<leader>p",
+            function()
+                require("neo-tree.command").execute({
+                    reveal = true,
+                    action = "show",
+                    source = "filesystem",
+                    position = "current",
+                })
+            end,
+        },
     },
     config = function ()
         require("neo-tree").setup({
+            close_if_last_window = true,
+            enable_cursor_hijack = false,
+            window = {
+                position = "current",
+                auto_expand_width = true
+            },
             filesystem = {
                 follow_current_file = { enabled = true },
-                hijack_netrw_behavior = "open_current",
                 components = {
                     harpoon_index = function(config, node, _)
                         local harpoon_list = require("harpoon"):list()
@@ -65,10 +82,9 @@ return {
                         { "git_status", highlight = "NeoTreeDimText" },
                     },
                 },
+                hijack_netrw_behavior = "open_default",
             },
-            window = {
-                auto_expand_width = true
-            }
         })
-    end
+        vim.cmd([[nnoremap \ :Neotree reveal<CR>]])
+    end,
 }
