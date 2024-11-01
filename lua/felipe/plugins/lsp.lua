@@ -14,13 +14,6 @@ return {
         "onsails/lspkind.nvim",
         "j-hui/fidget.nvim",
     },
-    opts = {
-        setup = {
-            jdtls = function()
-                return true
-            end
-        }
-    },
     config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")

@@ -12,9 +12,6 @@ capabilities.workspace = {
 }
 
 local on_attach = function(client, bufnr)
-    -- Aqui define <Ctrl-x> + <Ctrl-o> para ativar o autocomplete, mas ele irá se ativar quando você digita também
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', "v:lua.vim.lsp.omnifunc")
-
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     local opts = { noremap = true, silent = true }
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -45,25 +42,6 @@ local config = {
     settings = {
         java = {
             signatureHelp = { enabled = true },
-            contentProvider = { preferred = 'fernflower' },
-            completion = {
-                favoriteStaticMembers = {
-                    "org.hamcrest.MatcherAssert.assertThat",
-                    "org.hamcrest.Matchers.*",
-                    "org.hamcrest.CoreMatchers.*",
-                    "org.junit.jupiter.api.Assertions.*",
-                    "java.util.Objects.requireNonNull",
-                    "java.util.Objects.requireNonNullElse",
-                    "org.mockito.Mockito.*"
-                },
-                filteredTypes = {
-                    "com.sun.*",
-                    "io.micrometer.shaded.*",
-                    "java.awt.*",
-                    "jdk.*",
-                    "sun.*",
-                },
-            },
             sources = {
                 organizeImports = {
                     starThreshold = 9999,
@@ -79,15 +57,6 @@ local config = {
                 },
                 useBlocks = true,
             },
-            configuration = {
-                runtimes = {
-                    {
-                        name = "OpenJDK Runtime Environment (build 21.0.4+7-Ubuntu-1ubuntu224.04)",
-                        path = "/usr/lib/jvm/java-21-openjdk-amd64",
-                        default = true
-                    }
-                }
-            }
         }
     },
     init_options = {

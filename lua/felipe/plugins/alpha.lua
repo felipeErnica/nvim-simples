@@ -1,5 +1,5 @@
 return {
-    'goolord/alpha-nvim',
+    'goolord/alpha-nvim', --Neovim greeter!
     config = function ()
         require'alpha'.setup(require'alpha.themes.dashboard'.config)
     end
