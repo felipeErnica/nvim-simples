@@ -18,6 +18,28 @@ return {
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
 
+        vim.api.nvim_create_autocmd('LspAttach', {
+            callback = function(args)
+                local bufnr = args.buf
+                local bufopts = { noremap = true, silent = true, buffer = bufnr }
+                local opts = { noremap = true, silent = true }
+                vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+                vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+                vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+                vim.keymap.set('n', 'Gd', vim.lsp.buf.declaration, bufopts)
+                vim.keymap.set('n', '<space>K', vim.lsp.buf.signature_help, bufopts)
+                vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+                vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, bufopts)
+                vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+                vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+                vim.keymap.set('n', '<space>fo', vim.lsp.buf.format, bufopts)
+                vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+                vim.keymap.set('n', '<leader>xp', vim.diagnostic.goto_prev, opts)
+                vim.keymap.set('n', '<leader>xn', vim.diagnostic.goto_next, opts)
+            end,
+        })
+
         require("mason-tool-installer").setup({
             ensure_installed = {
                 "java-debug-adapter",
