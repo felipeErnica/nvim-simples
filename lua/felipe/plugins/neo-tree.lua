@@ -82,7 +82,7 @@ return {
                     file = {
                         { "icon" },
                         { "name", use_git_status_colors = true },
-                        { "harpoon_index" }, --> This is what actually adds the component in where you want it
+                        { "harpoon_index" },
                         { "diagnostics" },
                         { "git_status", highlight = "NeoTreeDimText" },
                     },

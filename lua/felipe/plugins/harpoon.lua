@@ -1,26 +1,24 @@
 return {
     "ThePrimeagen/harpoon",
+    name = "harpoon",
     branch = "harpoon2",
     config = function()
         local harpoon = require("harpoon")
+        local list = harpoon:list()
 
         harpoon:setup()
 
-        vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-        vim.keymap.set("n", "<C-h>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+        vim.keymap.set("n", "<leader>a", function() list:add() end)
+        vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(list) end)
 
-        vim.keymap.set("n", "<C-q>", function() harpoon:list():select(1) end)
-        vim.keymap.set("n", "<C-w>", function() harpoon:list():select(2) end)
-        vim.keymap.set("n", "<C-e>", function() harpoon:list():select(3) end)
-        vim.keymap.set("n", "<C-r>", function() harpoon:list():select(4) end)
-        vim.keymap.set("n", "<leader><C-q>", function() harpoon:list():replace_at(1) end)
-        vim.keymap.set("n", "<leader><C-w>", function() harpoon:list():replace_at(2) end)
-        vim.keymap.set("n", "<leader><C-e>", function() harpoon:list():replace_at(3) end)
-        vim.keymap.set("n", "<leader><C-r>", function() harpoon:list():replace_at(4) end)
+        vim.keymap.set("n", "<C-h>", function() list:select(1) end)
+        vim.keymap.set("n", "<C-j>", function() list:select(2) end)
+        vim.keymap.set("n", "<C-k>", function() list:select(3) end)
+        vim.keymap.set("n", "<C-l>", function() list:nav_file(4) end)
 
-        -- Toggle previous & next buffers stored within Harpoon list
-        vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-        vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+        vim.keymap.set("n", "<leader><C-h>", function() list:replace_at(1) end)
+        vim.keymap.set("n", "<leader><C-j>", function() list:replace_at(2) end)
+        vim.keymap.set("n", "<leader><C-k>", function() list:replace_at(3) end)
+        vim.keymap.set("n", "<leader><C-l>", function() list:replace_at(4) end)
     end
-
 }
