@@ -14,7 +14,7 @@ return {
         vim.keymap.set("n", "<C-h>", function() list:select(1) end)
         vim.keymap.set("n", "<C-j>", function() list:select(2) end)
         vim.keymap.set("n", "<C-k>", function() list:select(3) end)
-        vim.keymap.set("n", "<C-l>", function() list:nav_file(4) end)
+        vim.keymap.set("n", "<C-l>", function() list:select(4) end)
 
         vim.keymap.set("n", "<leader><C-h>", function() list:replace_at(1) end)
         vim.keymap.set("n", "<leader><C-j>", function() list:replace_at(2) end)
